@@ -25,7 +25,6 @@ NAMESPACE = "langchain_test_db.langchain_test_collection"
 CONNECTION_STRING = os.getenv("DOCUMENTDB_URI", "")
 DB_NAME, COLLECTION_NAME = NAMESPACE.split(".")
 
-lists = 1
 dimensions = 1536
 similarity_algorithm = DocumentDBSimilarityType.COS
 
@@ -106,8 +105,8 @@ class TestDocumentDBVectorSearch:
         )
         sleep(1)  # waits for DocumentDB to save contents to the collection
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, similarity_algorithm)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, similarity_algorithm)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search("Sandwich", similarity_algorithm, k=1)
@@ -136,8 +135,8 @@ class TestDocumentDBVectorSearch:
         )
         sleep(1)  # waits for DocumentDB to save contents to the collection
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, DocumentDBSimilarityType.DOT)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, DocumentDBSimilarityType.DOT)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search("Sandwich", similarity_algorithm, k=1)
@@ -163,8 +162,8 @@ class TestDocumentDBVectorSearch:
             index_name=INDEX_NAME,
         )
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, similarity_algorithm)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, similarity_algorithm)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search("Sandwich", similarity_algorithm, k=1)
@@ -190,8 +189,8 @@ class TestDocumentDBVectorSearch:
             index_name=INDEX_NAME,
         )
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, similarity_algorithm)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, similarity_algorithm)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search("Sandwich", similarity_algorithm, k=1)
@@ -220,8 +219,8 @@ class TestDocumentDBVectorSearch:
             index_name=INDEX_NAME,
         )
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, similarity_algorithm)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, similarity_algorithm)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search("Sandwich", similarity_algorithm, k=1)
@@ -260,8 +259,8 @@ class TestDocumentDBVectorSearch:
             index_name=INDEX_NAME,
         )
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, similarity_algorithm)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, similarity_algorithm)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search("Sandwich", similarity_algorithm, k=5)
@@ -308,8 +307,8 @@ class TestDocumentDBVectorSearch:
             index_name=INDEX_NAME,
         )
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, DocumentDBSimilarityType.DOT)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, DocumentDBSimilarityType.DOT)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search(
@@ -339,8 +338,8 @@ class TestDocumentDBVectorSearch:
             index_name=INDEX_NAME,
         )
 
-        # Create the IVFFLAT index that will be leveraged later for vector search
-        vectorstore.create_index(lists, dimensions, DocumentDBSimilarityType.EUC)
+        # Create the HNSW index that will be leveraged later for vector search
+        vectorstore.create_index(dimensions, DocumentDBSimilarityType.EUC)
         sleep(2)  # waits for the index to be set up
 
         output = vectorstore.similarity_search(

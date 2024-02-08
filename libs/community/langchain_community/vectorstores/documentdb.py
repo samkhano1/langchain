@@ -162,48 +162,17 @@ class DocumentDBVectorSearch(VectorStore):
 
     def create_index(
         self,
-        lists: int = 100,
         dimensions: int = 1536,
         similarity: DocumentDBSimilarityType = DocumentDBSimilarityType.COS,
     ) -> dict[str, Any]:
         """Creates an index using the index name specified at
             instance construction
 
-        Setting the lists parameter correctly is important for achieving
-            good accuracy and performance.
-            Since the vector store uses IVFFLAT as the indexing strategy,
-            you should create the index only after you
-            have loaded a large enough sample of documents to ensure that the
-            centroids for the respective buckets are
-            fairly distributed.
-
-        We recommend that lists is set to documentCount/1000 for up
-            to 1 million documents
-            and to sqrt(documentCount) for more than 1 million documents.
-            As the number of items in your database grows, you should
-            tune lists to be larger
-            in order to achieve good latency performance for vector search.
-
-            If you're experimenting with a new scenario or creating a
-            small demo, you can start with lists set to 1.
-            This should provide you with the most
-            accurate results from the vector search, however be aware that
-            the search speed and latency will be slow.
-            After your initial setup, you should go ahead and tune
-            the lists parameter using the above guidance.
-        NOTE: There are some limitations for lists values based on the instance type.
-            Please refer to the official documentation here:
-            https://docs.aws.amazon.com/documentdb/latest/developerguide/vector-search.html#vector-limitations
-
         Args:
-            lists: This integer is the number of clusters that the
-                inverted file (IVFFLAT) index uses to group the vector data.
-                We recommend that lists is set to documentCount/1000
-                for up to 1 million documents and to sqrt(documentCount)
-                for more than 1 million documents.
             dimensions: Number of dimensions for vector similarity.
                 The maximum number of supported dimensions is 2000
-            similarity: Similarity algorithm to use with the IVFFLAT index.
+
+            similarity: Similarity algorithm to use with the HNSW index.
 
                 Possible options are:
                     - DocumentDBSimilarityType.COS (cosine distance),
@@ -222,7 +191,7 @@ class DocumentDBVectorSearch(VectorStore):
                     "name": self._index_name,
                     "key": {self._embedding_key: "vector"},
                     "vectorOptions": {
-                        "lists": lists,
+                        "type": "hnsw",
                         "similarity": similarity,
                         "dimensions": dimensions,
                     },
